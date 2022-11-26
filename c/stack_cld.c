@@ -25,14 +25,12 @@ void freeStack (T_stack *p) {
 void push(T_elt e, T_stack *p) {
 	// Opération consistant à empiler un élément e
 	// sur la pile modifiant ainsi son état
-
 	*p=addNode(e, *p);
 }
 
 void showStack (const T_stack * p) {
 	// Afficher la pile
 	// On affiche en commençant par le sommet de la pile 
-
 	showList(*p);
 }
 
@@ -42,7 +40,6 @@ T_elt pop(T_stack *p) {
 
 	T_elt e = getFirstElt(*p);
 	(*p) = removeFirstNode(*p); 
-
 	return e; 
 }
 

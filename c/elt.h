@@ -5,10 +5,17 @@
 	// CHOISIR ICI CE QUE REPRESENTE LE TYPE T_elt 
 	//#define ELT_CHAR		// un caractère ?
 	//#define ELT_INT		// un entier (choix par défaut) ?
-	#define ELT_STRING	// une chaîne de caractères ?
+	//#define ELT_STRING	// une chaîne de caractères ?
+	#define ELT_RPN
 	/////////////////////////////////////////////////////////////////////////
 
-	//https://stackoverflow.com/questions/2998864/how-to-add-a-or-condition-in-ifdef
+
+	////////////// Constantes symboliques pour le champ statut du type ELT_RPN
+	#define RES_ENTIER 0
+	#define RES_NON_ENTIER 1
+	#define EXPR_VALIDE 2
+	#define EXPR_NON_VALIDE 3
+	//////////////////////////////////////////////////////////////////////////
 
 	#if ! defined(ELT_CHAR) && ! defined(ELT_INT) && ! defined(ELT_STRING)
 	#define ELT_INT
@@ -24,6 +31,13 @@
 
 	#ifdef ELT_STRING
 	typedef char * T_elt; 
+	#endif
+
+	#ifdef ELT_RPN
+	typedef struct {
+		int value;
+		char statut;
+	} T_elt;
 	#endif
 
 	// valable pour tous les types de T_elt 
