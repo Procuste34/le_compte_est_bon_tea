@@ -15,6 +15,11 @@
 	#define RES_NON_ENTIER 1
 	#define EXPR_VALIDE 2
 	#define EXPR_NON_VALIDE 3
+
+	#define PLUS 4
+	#define MOINS 5
+	#define FOIS 6
+	#define DIVISE 7
 	//////////////////////////////////////////////////////////////////////////
 
 	#if ! defined(ELT_CHAR) && ! defined(ELT_INT) && ! defined(ELT_STRING)
