@@ -14,13 +14,11 @@
 
 T_stack newStack() {
 	// Créer une pile vide
-
 	return NULL; 
 }
 
 void freeStack (T_stack *p) {
 	// Libérer la mémoire associée à une pile 
-
 	freeList(*p);
 }
 
@@ -42,32 +40,26 @@ T_elt pop(T_stack *p) {
 	// Cette opération extrait de la pile, l’élément au sommet, 
 	// modifiant ainsi son état
 
-	T_elt e; 
-	TOUCH_HERE("Ben là, c'est à vous ! \n");
+	T_elt e = getFirstElt(*p);
+	(*p) = removeFirstNode(*p); 
 
 	return e; 
 }
 
 T_elt top(const T_stack *p) {
 	// Cette opération permet d’accéder à l’élément en sommet de pile
-
-	T_elt e; 
-	TOUCH_HERE("Ben là, c'est à vous ! \n");
-
-	return e; 
+	return getFirstElt(*p); 
 }
 
 void emptyStack (T_stack *p) {
 	// Vider la pile 
-
-	TOUCH_HERE("Ben là, c'est à vous ! \n");
+	freeStack (p);
+	*p=NULL;
 }
 
 int isEmpty (const T_stack * p) {
 	// Cette opération permet de tester si la pile est vide
-
-	TOUCH_HERE("Ben là, c'est à vous ! \n");
-	return 0; 
+	return ((*p)==NULL); 
 }
 
 #endif

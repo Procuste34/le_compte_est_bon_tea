@@ -48,8 +48,6 @@ T_stack exampleStack(int n) {
 	// * utiliser de la programmation défensive
 	// * utiliser la fonction push()
 
-	
-
 	// On peut tronquer le nombre d'éléments 
 	// Ou utiliser de la programmation défensive avec assert()
 	if (n>STACK_NBMAX_ELT) n = STACK_NBMAX_ELT; 
