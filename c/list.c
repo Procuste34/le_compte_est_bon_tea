@@ -81,6 +81,8 @@ T_list removeFirstNode(T_list l) {
 	return p; 
 }
 
+
+/*
 // A produire en version récursive (+ tard dans le sujet)
 
 void showList_rec(T_list l) {
@@ -103,4 +105,5 @@ void freeList_rec(T_list l) {
 
 	TOUCH_HERE("Ben là, c'est à vous ! \n");
 }
+*/
 
