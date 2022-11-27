@@ -2,16 +2,15 @@
 #include <assert.h>
 #include <string.h> //strcat, strcpy, strcmp
 
-//#define CLEAR2CONTINUE
 #include "../include/traces.h" 
-
 #include "../include/check.h" 
 
-// C'est dans le fichier elt.h qu'on doit choisir l'implémentation des T_elt
 #include "elt.h"
 #include "list.h"
 
 #include "rpn.h"
+
+#define NB_CARTONS_INITIAL 6
 
 #define A_TROUVER 859//631//945//219 //945
 #define C1 3//2// 5//8 //5
@@ -21,9 +20,8 @@
 #define C5 25// 1//4 //1
 #define C6 50// 6//2 //6
 
-int a_trouver = A_TROUVER;
-
-int best_diff = A_TROUVER;
+int a_trouver;
+int best_diff;
 char * best_rpn_string = "";
 
 void showTab(int tab[], int len){
@@ -94,6 +92,10 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 		//free(rpn_new);
 	}
 
+	if(res.statut == RPN_VALEUR){
+		return;
+	}
+
 	//pour chaque operateur : appel rec
 	for(int i = 0; i<4; i++){ //4 opérateurs
 		char * str = "";
@@ -129,13 +131,20 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 	//TODO : 2 fois le meme carton pris...
 
 	//TODO : affichage
-	
-	//TODO : remove les log(10) (mettre 2-3 a la place...)
-	//TODO : si le res du rpn est une valeur ca ne sert à rien de passer dans la boucle des opérateurs...
 }
 
 int main(int argc, char ** argv) {
 	printf("***********************\n");
+
+	assert(argc==NB_CARTONS_INITIAL+2);
+
+	int cartons[NB_CARTONS_INITIAL] = {0};
+	for(int i = 0; i<NB_CARTONS_INITIAL; i++){
+		cartons[i] = (int)strtol(argv[i+1], NULL, 10);
+	}
+	a_trouver = (int)strtol(argv[7], NULL, 10);
+	best_diff = a_trouver;
+
 	/*
 	char * expression = "1 2 + 4 + 5";
 	T_elt elt = rpn_eval(expression);
@@ -198,13 +207,9 @@ int main(int argc, char ** argv) {
 	//reponse = rpn_eval("8 3 + 10 * 2 * 7 4 - + 4 -");
 	//printf("%d\n", reponse.statut);
 	//printf("%d\n", reponse.value);
-
-
-	printf("HHHHHHHHHHHHHHHHHHHHHHHHHH\n");
-
 	
-	int cartons_restants[6] = {C1, C2, C3, C4, C5, C6};
-	appel_rec("", cartons_restants, 6);
+	//int cartons_restants[6] = {C1, C2, C3, C4, C5, C6};
+	appel_rec("", cartons, NB_CARTONS_INITIAL);
 
 	printf("%d\n", best_diff);
 	printf("%s\n", best_rpn_string);
@@ -217,3 +222,6 @@ int main(int argc, char ** argv) {
 
 
 
+
+//sources : https://stackoverflow.com/questions/4176326/arguments-to-main-in-c
+//https://stackoverflow.com/questions/9748393/how-can-i-get-argv-as-int
