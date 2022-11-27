@@ -58,7 +58,7 @@ void freeList(T_list l) {
 	// on ne doit libérer qu'après avoir enregistré quelque part
 	// l'adresse de la maille suivante
 	while(l != NULL) {
-		printf("Libération de %s\n", l->data);
+		//printf("Libération de %s\n", l->data);
 		pAux = l->pNext; 
 		free(l); 
 		l = pAux; 

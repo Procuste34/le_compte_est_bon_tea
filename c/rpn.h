@@ -1,0 +1,12 @@
+#include "elt.h"	// T_elt
+#include "list.h"	// T_list, T_node
+
+/////////////////////////////////////////////////////////////////////////
+// CHOISIR ICI L'IMPLEMENTATION DES PILES 
+/////////////////////////////////////////////////////////////////////////
+
+#define IMPLEMENTATION_CS
+//#define IMPLEMENTATION_CD
+//#define IMPLEMENTATION_CLD
+
+T_list s2list(char * exp);

@@ -72,5 +72,18 @@ T_elt genElt(void) {
 } 
 #endif
 
+#ifdef ELT_RPN
+// T_elt est un element qui compose une RPN ...
+char * toString(T_elt e) {
+	return "rpn";
+}
+
+T_elt genElt(void) {
+	T_elt mon_element = {0, 0};
+	return mon_element;
+} 
+#endif
+
+
 
 

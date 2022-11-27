@@ -10,7 +10,7 @@
 
 // typedef T_node * T_stack;
 
-#ifdef IMPLEMENTATION_DYNAMIC_LINKED
+#ifdef IMPLEMENTATION_CLD
 
 T_stack newStack() {
 	// Créer une pile vide

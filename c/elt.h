@@ -22,7 +22,7 @@
 	#define DIVISE 7
 	//////////////////////////////////////////////////////////////////////////
 
-	#if ! defined(ELT_CHAR) && ! defined(ELT_INT) && ! defined(ELT_STRING)
+	#if ! defined(ELT_CHAR) && ! defined(ELT_INT) && ! defined(ELT_STRING) && ! defined(ELT_RPN)
 	#define ELT_INT
 	#endif
 

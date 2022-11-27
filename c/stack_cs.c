@@ -5,7 +5,7 @@
 
 #include "stack_cs.h" // type et protypes liés à T_stack
 
-#ifdef IMPLEMENTATION_STATIC_CONTIGUOUS
+#ifdef IMPLEMENTATION_CS
 
 // Nouvelles fonctions à réaliser pour l'exercice 3 /////////////////////////
 
@@ -29,7 +29,7 @@ void push(T_elt e, T_stack *p) {
 	// sur la pile modifiant ainsi son état
 	
 	assert(p != NULL);
-	assert(p->sp <= STACK_NBMAX_ELT)
+	assert(p->sp <= STACK_NBMAX_ELT);
 
 	p->data[p->sp++] = e; //post-incrémentation : écrit d'abord à p->sp PUIS incrémente
 
