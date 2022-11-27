@@ -1,6 +1,6 @@
 #include <assert.h>
-#include <string.h>
-#include <math.h>
+#include <string.h> // strcmp, strlen
+#include <math.h> // pow
 
 #include "../include/traces.h" 
 #include "../include/check.h"
@@ -35,7 +35,7 @@ T_list s2list(char * exp){
             last_entiers++;
         }else {
             //ajouter a la liste l'operateur
-
+            
             if(ch == '+'){
                 T_elt elt = {0, RPN_PLUS};
                 p=addNode(elt, p);
@@ -71,7 +71,14 @@ T_elt rpn_eval(char * exp){
         return ok;
     }
 
+    #ifndef IMPLEMENTATION_CD
     T_stack pile = newStack();
+    #endif
+
+    #ifdef IMPLEMENTATION_CD
+    T_stack pile = newStack(20);
+    #endif
+    
     T_list rpn = s2list(exp);
 
     //tant que la liste n'est pas vide
@@ -105,20 +112,26 @@ T_elt rpn_eval(char * exp){
 
             //on peut faire le calcul avec les champs value
             if(elt.statut == RPN_PLUS){
-                T_elt c = {a.value+b.value, RPN_VALEUR};
+                T_elt c = {b.value+a.value, RPN_VALEUR};
                 push(c, &pile);
             }else if(elt.statut == RPN_MOINS){
-                T_elt c = {a.value-b.value, RPN_VALEUR};
+                T_elt c = {b.value-a.value, RPN_VALEUR};
                 push(c, &pile);
             }else if(elt.statut == RPN_FOIS){
-                T_elt c = {a.value*b.value, RPN_VALEUR};
+                T_elt c = {b.value*a.value, RPN_VALEUR};
                 push(c, &pile);
             }else if(elt.statut == RPN_DIVISE){
-                if(b.value==0){
+                if(a.value==0){
                     T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
-                return elt_erreur;
+                    return elt_erreur;
                 }
-                T_elt c = {a.value/b.value, RPN_VALEUR};
+
+                if(b.value%a.value != 0){
+                    T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
+                    return elt_erreur;
+                }
+
+                T_elt c = {b.value/a.value, RPN_VALEUR};
                 push(c, &pile);
             }else{
                 T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
@@ -130,12 +143,9 @@ T_elt rpn_eval(char * exp){
     //showStack(&pile);
 
     //si il reste qu'un int a la fin : c'est une RPN valide, on renvoit le res. (type: RPN_VALEUR)
-    //si il reste 2 int : ce sont deux valeurs donc la RPN peut etre valide (type: RPN_EXPR_VALIDE)
-    //sinon : pas valide
+    //sinon : expr non evaluable mais reste quand meme valide
 
-    T_elt res;
-
-    res = pop(&pile);
+    T_elt res = pop(&pile);
 
     if(isEmpty(&pile)){
         if(res.statut==RPN_VALEUR){
@@ -145,15 +155,8 @@ T_elt rpn_eval(char * exp){
             return elt_erreur;
         }
     }else {
-        T_elt res2 = pop(&pile);
-
-        if(res.statut == RPN_VALEUR && res2.statut == RPN_VALEUR && isEmpty(&pile)){
-            T_elt elt_ok = {-1, RPN_EXPR_VALIDE};
-            return elt_ok;
-        }else{
-            T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
-            return elt_erreur;
-        }
+        T_elt elt_ok = {-1, RPN_EXPR_VALIDE};
+        return elt_ok;
     }
 }
 
