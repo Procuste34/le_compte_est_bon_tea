@@ -13,10 +13,8 @@
 int main(int argc, char ** argv) {
 	printf("***********************\n");
 
-	char * expression = "1 2 + 44 556 5900 / 0";
-	T_list p = s2list(expression);
-
-	showList(p);
+	char * expression = "1 2 + 4 + 5";
+	T_elt elt = rpn_eval(expression);
 
 	return 0;
 }

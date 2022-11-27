@@ -1,4 +1,7 @@
 #include "elt.h"
+#include "stack_choix.h"
+
+#ifdef IMPLEMENTATION_CD
 
 typedef struct {
 	int sp; 
@@ -17,5 +20,4 @@ int isEmpty (const T_stack * p);
 T_stack exampleStack(int n);
 
 void freeStack (T_stack *p);
-
-
+#endif

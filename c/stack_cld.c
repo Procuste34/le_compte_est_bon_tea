@@ -8,9 +8,9 @@
 
 #include "stack_cld.h" // type et protypes liés à T_stack
 
-// typedef T_node * T_stack;
-
 #ifdef IMPLEMENTATION_CLD
+
+// typedef T_node * T_stack;
 
 T_stack newStack() {
 	// Créer une pile vide
@@ -58,7 +58,4 @@ int isEmpty (const T_stack * p) {
 	// Cette opération permet de tester si la pile est vide
 	return ((*p)==NULL); 
 }
-
 #endif
-
-

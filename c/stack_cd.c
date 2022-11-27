@@ -9,6 +9,7 @@
 #include "stack_cd.h" // type et protypes liés à T_stack
 
 #ifdef IMPLEMENTATION_CD
+
 #define STACK_THRESHOLD 5
 
 /*
@@ -123,7 +124,4 @@ int isEmpty (const T_stack * p) {
 	else return 0;
 	
 }
-
 #endif
-
-

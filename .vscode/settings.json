@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "traces.h": "c",
+        "check.h": "c"
+    }
+}

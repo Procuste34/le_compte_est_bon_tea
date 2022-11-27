@@ -54,6 +54,50 @@ T_list s2list(char * exp){
 
 T_elt rpn_eval(char * exp){
     T_stack pile = newStack();
+    T_list rpn = s2list(exp);
 
-    
+    //tant que la liste n'est pas vide
+    //  lire l'elt en tete
+    //  si operande : empiler
+    //  sinon : dépiler 2 fois, faire le cacul, empiler
+
+    while(rpn != NULL){
+        T_elt elt = getFirstElt(rpn);
+        rpn = removeFirstNode(rpn);
+
+        if(elt.statut == RPN_VALEUR){
+            push(elt, &pile);
+        }else{
+            T_elt a = pop(&pile);
+            T_elt b = pop(&pile);
+
+            if(a.statut != RPN_VALEUR || b.statut != RPN_VALEUR){
+                T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
+                return elt_erreur;
+            }
+
+            //on peut faire le calcul avec les champs value
+            if(elt.statut == RPN_PLUS){
+                T_elt c = {a.value+b.value, RPN_VALEUR};
+                push(c, &pile);
+            }else if(elt.statut == RPN_MOINS){
+                T_elt c = {a.value-b.value, RPN_VALEUR};
+                push(c, &pile);
+            }else if(elt.statut == RPN_FOIS){
+                T_elt c = {a.value*b.value, RPN_VALEUR};
+                push(c, &pile);
+            }else if(elt.statut == RPN_DIVISE){
+                T_elt c = {a.value/b.value, RPN_VALEUR};
+                push(c, &pile);
+            }else{
+                T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
+                return elt_erreur;
+            }
+        }
+    }
+
+    showStack(&pile);
+
+    T_elt elt = {0, 0};
+    return elt;
 }
