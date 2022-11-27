@@ -26,15 +26,15 @@ int best_diff = A_TROUVER;
 char * best_rpn_string = "";
 
 void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restants){
-	printf("--------- RPN : '%s' ---------", rpn_string);
+	//printf("--------- RPN : '%s' ---------", rpn_string);
 
 	T_elt res = rpn_eval(rpn_string);
 
 	if(res.statut == RPN_EXPR_NON_VALIDE){
-		printf("pas valide\n");
+		//printf("pas valide\n");
 		return;
 	}else{
-		printf("\n");
+		//printf("\n");
 	}
 	if(res.statut == RPN_VALEUR){
 		if(abs(res.value - a_trouver) < best_diff){
@@ -96,6 +96,7 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 	}
 
 	//TODO : free les strings
+	//TODO : switch plutot que des if?
 }
 
 int main(int argc, char ** argv) {
@@ -158,16 +159,19 @@ int main(int argc, char ** argv) {
 
 	//printf("%d\n", strcmp("aleex", "alex"));
 
-	T_elt reponse;
-	reponse = rpn_eval("");
-	printf("%d\n", reponse.statut);
+	//T_elt reponse;
+	//reponse = rpn_eval("");
+	//printf("%d\n", reponse.statut);
 
 
 
 	printf("HHHHHHHHHHHHHHHHHHHHHHHHHH\n");
 
-	//int cartons_restants[6] = {C1, C2, C3, C4, C5, C6};
-	//appel_rec("1", cartons_restants, 6);
+	int cartons_restants[6] = {C1, C2, C3, C4, C5, C6};
+	appel_rec("1", cartons_restants, 6);
+
+	printf("%d\n", best_diff);
+	printf("%s\n", best_rpn_string);
 
 	return 0;
 }

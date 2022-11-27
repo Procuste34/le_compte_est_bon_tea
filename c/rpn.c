@@ -35,8 +35,21 @@ T_list s2list(char * exp){
             last_entiers++;
         }else {
             //ajouter a la liste l'operateur
-            T_elt elt = {0, RPN_PLUS};
-            p=addNode(elt, p);
+
+            if(ch == '+'){
+                T_elt elt = {0, RPN_PLUS};
+                p=addNode(elt, p);
+            }else if(ch == '-'){
+                T_elt elt = {0, RPN_MOINS};
+                p=addNode(elt, p);
+            }else if(ch == '*'){
+                T_elt elt = {0, RPN_FOIS};
+                p=addNode(elt, p);
+            }else{
+                T_elt elt = {0, RPN_DIVISE};
+                p=addNode(elt, p);
+            }
+            
             last_entiers = 0;
         }
     }
@@ -101,6 +114,10 @@ T_elt rpn_eval(char * exp){
                 T_elt c = {a.value*b.value, RPN_VALEUR};
                 push(c, &pile);
             }else if(elt.statut == RPN_DIVISE){
+                if(b.value==0){
+                    T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
+                return elt_erreur;
+                }
                 T_elt c = {a.value/b.value, RPN_VALEUR};
                 push(c, &pile);
             }else{
