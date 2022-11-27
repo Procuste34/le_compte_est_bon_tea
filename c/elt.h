@@ -11,10 +11,10 @@
 
 
 	////////////// Constantes symboliques pour le champ statut du type ELT_RPN
-	#define RES_ENTIER 0
-	#define RES_NON_ENTIER 1
-	#define EXPR_VALIDE 2
-	#define EXPR_NON_VALIDE 3
+	#define RPN_RES_ENTIER 0
+	#define RPN_RES_NON_ENTIER 1
+	#define RPN_EXPR_VALIDE 2
+	#define RPN_EXPR_NON_VALIDE 3
 
 	#define PLUS 4
 	#define MOINS 5

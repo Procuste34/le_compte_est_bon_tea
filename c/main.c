@@ -16,8 +16,11 @@
 
 int main(int argc, char ** argv) {
 	printf("***********************\n");
-	//char * expression = "1 2 +";
-	//s2list(expression);
+
+	char * expression = "1 2 +";
+	T_list p = s2list(expression);
+
+	showList(p);
 
 	return 0;
 }
