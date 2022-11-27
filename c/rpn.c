@@ -98,6 +98,14 @@ T_elt rpn_eval(char * exp){
 
     showStack(&pile);
 
-    T_elt elt = {0, 0};
-    return elt;
+    return top(&pile);
 }
+
+//TODO :
+//fonction qui verifie si une RPN est valide
+//attention, c'est dommage de parcourir 2 fois un RPN (une fois pour voir s'il est valide, une fois pour l'evaluer)
+//autant faire une fonction pour les 2 (renvoie un elt special si pas valide, ...)
+
+//rpn_eval peut renvoyer 3 cas différent : elt d'erreur (<-> RPN non valide : RPN_EXPR_NON_VALIDE)
+//                                         elt de valeur (<-> RPN valide : RPN_VALEUR)
+//                                         elt cas 3 (<-> RPN peut etre valide : RPN_EXP_VALIDE) 
