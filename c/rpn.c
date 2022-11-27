@@ -115,6 +115,12 @@ T_elt rpn_eval(char * exp){
                 T_elt c = {b.value+a.value, RPN_VALEUR};
                 push(c, &pile);
             }else if(elt.statut == RPN_MOINS){
+
+                if(b.value-a.value<0){
+                    T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
+                    return elt_erreur;
+                }
+
                 T_elt c = {b.value-a.value, RPN_VALEUR};
                 push(c, &pile);
             }else if(elt.statut == RPN_FOIS){
@@ -157,6 +163,54 @@ T_elt rpn_eval(char * exp){
     }else {
         T_elt elt_ok = {-1, RPN_EXPR_VALIDE};
         return elt_ok;
+    }
+}
+
+void affiche_operations_rpn(char * exp){
+    assert(rpn_eval(exp).statut == RPN_VALEUR);
+
+    #ifndef IMPLEMENTATION_CD
+    T_stack pile = newStack();
+    #endif
+
+    #ifdef IMPLEMENTATION_CD
+    T_stack pile = newStack(20);
+    #endif
+    
+    T_list rpn = s2list(exp);
+
+    while(rpn != NULL){
+        T_elt elt = getFirstElt(rpn);
+        rpn = removeFirstNode(rpn);
+
+        if(elt.statut == RPN_VALEUR){
+            push(elt, &pile);
+        }else{
+            T_elt a = pop(&pile);
+            T_elt b = pop(&pile);
+
+            //on peut faire le calcul avec les champs value
+            if(elt.statut == RPN_PLUS){
+                T_elt c = {b.value+a.value, RPN_VALEUR};
+                push(c, &pile);
+                printf("%d + %d = %d\n", b.value, a.value, c.value);
+
+            }else if(elt.statut == RPN_MOINS){
+                T_elt c = {b.value-a.value, RPN_VALEUR};
+                push(c, &pile);
+                printf("%d - %d = %d\n", b.value, a.value, c.value);
+
+            }else if(elt.statut == RPN_FOIS){
+                T_elt c = {b.value*a.value, RPN_VALEUR};
+                push(c, &pile);
+                printf("%d * %d = %d\n", b.value, a.value, c.value);
+
+            }else if(elt.statut == RPN_DIVISE){
+                T_elt c = {b.value/a.value, RPN_VALEUR};
+                push(c, &pile);
+                printf("%d / %d = %d\n", b.value, a.value, c.value);
+            }
+        }
     }
 }
 

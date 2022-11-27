@@ -129,8 +129,6 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 
 	//TODO : free les strings
 	//TODO : 2 fois le meme carton pris...
-
-	//TODO : affichage
 }
 
 int main(int argc, char ** argv) {
@@ -145,75 +143,12 @@ int main(int argc, char ** argv) {
 	a_trouver = (int)strtol(argv[7], NULL, 10);
 	best_diff = a_trouver;
 
-	/*
-	char * expression = "1 2 + 4 + 5";
-	T_elt elt = rpn_eval(expression);
-
-	if(elt.statut == RPN_EXPR_NON_VALIDE){
-		printf("RPN NON VALIDE");
-	}
-	*/
-
-	//todo : lancer l'appel recursif, avec rpn_string="", cartons_restants=[les cartons complets]
-
-	/*
-	char * mon_rpn_1 = "1 2";
-
-	char* name = "hello";
-	char* extension = " 1 ";
-
-
-	char* name_with_extension = malloc(strlen(name)+1+4); // (should check the return value ...)
-	
-	//strcpy(name_with_extension, name); //copy name into the new var
-	//strcat(name_with_extension, extension); //add the extension
-	printf("%s\n", name_with_extension);
-
-	char * str = malloc(sizeof(char)*(int)log10(42));
-	sprintf(str, " %d ", 42);
-	printf("%s\n", str);
-
-	free(name_with_extension);
-	free(str);
-
-
-	printf("EEEEEEEEEEEEEEEE\n");
-
-	int cartons_restants[5] = {3, 6, 1, 4, 5};
-	int i = 1;
-
-	int cartons_restants_2[5-1];
-	int compteur = 0;
-	for(int j=0; j<5; j++){
-		if(j != i){
-			cartons_restants_2[compteur] = cartons_restants[j];
-			compteur++;
-		}
-	}
-
-	printf("cartons_restants :\n");
-	for(int i=0; i<5; i++){
-		printf("%d\n", cartons_restants[i]);
-	}
-
-	printf("cartons_restants_2 :\n");
-	for(int i=0; i<4; i++){
-		printf("%d\n", cartons_restants_2[i]);
-	} */
-
-	//printf("%d\n", strcmp("aleex", "alex"));
-
-	//T_elt reponse;
-	//reponse = rpn_eval("8 3 + 10 * 2 * 7 4 - + 4 -");
-	//printf("%d\n", reponse.statut);
-	//printf("%d\n", reponse.value);
-	
-	//int cartons_restants[6] = {C1, C2, C3, C4, C5, C6};
 	appel_rec("", cartons, NB_CARTONS_INITIAL);
 
 	printf("%d\n", best_diff);
 	printf("%s\n", best_rpn_string);
-	
+
+	affiche_operations_rpn(best_rpn_string);
 
 	return 0;
 }

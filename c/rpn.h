@@ -16,3 +16,4 @@
 
 T_list s2list(char * exp);
 T_elt rpn_eval(char * exp);
+void affiche_operations_rpn(char * exp);
