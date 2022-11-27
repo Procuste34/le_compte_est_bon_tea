@@ -8,24 +8,18 @@
 #include "elt.h"
 #include "list.h"
 
-#include "stack_cs.h"
-#include "stack_cd.h"
-#include "stack_cld.h"
-
 #include "rpn.h"
 
 int main(int argc, char ** argv) {
 	printf("***********************\n");
 
-	char * expression = "1 2 + 44";
+	char * expression = "1 2 + 44 556 5900 / 0";
 	T_list p = s2list(expression);
 
 	showList(p);
 
 	return 0;
 }
-
-
 
 
 

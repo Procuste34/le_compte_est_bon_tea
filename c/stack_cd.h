@@ -1,7 +1,5 @@
 #include "elt.h"
-#include "rpn.h"
 
-#ifdef IMPLEMENTATION_CD
 typedef struct {
 	int sp; 
 	int nbMaxElt;
@@ -19,7 +17,5 @@ int isEmpty (const T_stack * p);
 T_stack exampleStack(int n);
 
 void freeStack (T_stack *p);
-
-#endif 
 
 

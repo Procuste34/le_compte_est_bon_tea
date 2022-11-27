@@ -1,8 +1,6 @@
 #include "elt.h"	// T_elt
 #include "list.h"	// T_list, T_node
-#include "rpn.h"
 
-#ifdef IMPLEMENTATION_CLD
 typedef T_node * T_stack;
 
 void emptyStack (T_stack *p);
@@ -16,7 +14,5 @@ int isEmpty (const T_stack * p);
 T_stack exampleStack(int n);
 
 void freeStack (T_stack *p);
-
-#endif 
 
 
