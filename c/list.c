@@ -80,30 +80,3 @@ T_list removeFirstNode(T_list l) {
 	free(l); 
 	return p; 
 }
-
-
-/*
-// A produire en version récursive (+ tard dans le sujet)
-
-void showList_rec(T_list l) {
-	// Afficher la liste en commençant par sa tête 
-	// A faire en récursif 
-
-	TOUCH_HERE("Ben là, c'est à vous ! \n");
-}
-
-void showList_inv_rec(T_list l) {
-	// Afficher la liste en commençant par sa queue 
-	// A faire en récursif 
-
-	TOUCH_HERE("Ben là, c'est à vous ! \n");
-}
-
-void freeList_rec(T_list l) {
-	// Libérer la mémoire de toutes les cellules de la liste l 
-	// A faire en récursif
-
-	TOUCH_HERE("Ben là, c'est à vous ! \n");
-}
-*/
-

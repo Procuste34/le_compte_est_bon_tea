@@ -16,10 +16,11 @@
 	#define RPN_EXPR_VALIDE 2
 	#define RPN_EXPR_NON_VALIDE 3
 
-	#define PLUS 4
-	#define MOINS 5
-	#define FOIS 6
-	#define DIVISE 7
+	#define RPN_VALEUR 5
+	#define RPN_PLUS 6
+	#define RPN_MOINS 7
+	#define RPN_FOIS 8
+	#define RPN_DIVISE 9
 	//////////////////////////////////////////////////////////////////////////
 
 	#if ! defined(ELT_CHAR) && ! defined(ELT_INT) && ! defined(ELT_STRING) && ! defined(ELT_RPN)

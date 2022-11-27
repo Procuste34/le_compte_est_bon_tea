@@ -13,10 +13,6 @@ void showList(T_list l);
 void freeList(T_list l);
 T_elt getFirstElt(T_list l);
 T_list removeFirstNode(T_list l);
-void showList_rec(T_list l);
-void showList_inv_rec(T_list l);
-void freeList_rec(T_list l);
-
 #endif 
 
 

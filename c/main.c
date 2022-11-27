@@ -17,7 +17,7 @@
 int main(int argc, char ** argv) {
 	printf("***********************\n");
 
-	char * expression = "1 2 +";
+	char * expression = "1 2 + 44";
 	T_list p = s2list(expression);
 
 	showList(p);

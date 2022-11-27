@@ -75,7 +75,17 @@ T_elt genElt(void) {
 #ifdef ELT_RPN
 // T_elt est un element qui compose une RPN ...
 char * toString(T_elt e) {
-	printf("value : %d | statut : %d\n", e.value, e.statut);
+	char * statut_string = "";
+
+	if(e.statut == RPN_PLUS || e.statut == RPN_MOINS || e.statut == RPN_FOIS || e.statut == RPN_DIVISE){
+		statut_string = "operateur";
+	}else if(e.statut == RPN_VALEUR){
+		statut_string = "valeur";
+	}else {
+		statut_string = "autre";
+	}
+
+	printf("value : %d | statut : %s\n", e.value, statut_string);
 	return "";
 }
 
