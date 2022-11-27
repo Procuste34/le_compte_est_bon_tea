@@ -3,7 +3,7 @@
 
 #ifdef IMPLEMENTATION_CS
 
-#define STACK_NBMAX_ELT 20
+#define STACK_NBMAX_ELT 100
 
 typedef struct {
 	int sp; 

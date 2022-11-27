@@ -53,6 +53,11 @@ T_list s2list(char * exp){
 }
 
 T_elt rpn_eval(char * exp){
+    if(strcmp(exp, "") == 0){ //cas particulier
+        T_elt ok = {0, RPN_EXPR_VALIDE};
+        return ok;
+    }
+
     T_stack pile = newStack();
     T_list rpn = s2list(exp);
 
@@ -68,7 +73,16 @@ T_elt rpn_eval(char * exp){
         if(elt.statut == RPN_VALEUR){
             push(elt, &pile);
         }else{
+            if(isEmpty(&pile)){
+                T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
+                return elt_erreur;
+            }
             T_elt a = pop(&pile);
+
+            if(isEmpty(&pile)){
+                T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
+                return elt_erreur;
+            }
             T_elt b = pop(&pile);
 
             if(a.statut != RPN_VALEUR || b.statut != RPN_VALEUR){
@@ -96,9 +110,34 @@ T_elt rpn_eval(char * exp){
         }
     }
 
-    showStack(&pile);
+    //showStack(&pile);
 
-    return top(&pile);
+    //si il reste qu'un int a la fin : c'est une RPN valide, on renvoit le res. (type: RPN_VALEUR)
+    //si il reste 2 int : ce sont deux valeurs donc la RPN peut etre valide (type: RPN_EXPR_VALIDE)
+    //sinon : pas valide
+
+    T_elt res;
+
+    res = pop(&pile);
+
+    if(isEmpty(&pile)){
+        if(res.statut==RPN_VALEUR){
+            return res;
+        }else{
+            T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
+            return elt_erreur;
+        }
+    }else {
+        T_elt res2 = pop(&pile);
+
+        if(res.statut == RPN_VALEUR && res2.statut == RPN_VALEUR && isEmpty(&pile)){
+            T_elt elt_ok = {-1, RPN_EXPR_VALIDE};
+            return elt_ok;
+        }else{
+            T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
+            return elt_erreur;
+        }
+    }
 }
 
 //TODO :
