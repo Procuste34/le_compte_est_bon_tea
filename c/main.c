@@ -36,10 +36,7 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 	T_elt res = rpn_eval(rpn_string);
 
 	if(res.statut == RPN_EXPR_NON_VALIDE){
-		//printf("pas valide\n");
 		return;
-	}else{
-		//printf("\n");
 	}
 	if(res.statut == RPN_VALEUR){
 		if(abs(res.value - a_trouver) < best_diff){
@@ -53,12 +50,10 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 
 	//pour chaque carton restant : appel rec
 	for(int i=0; i<len_cartons_restants; i++){
-		//printf("%d\n", cartons_restants[i]);
 
 		//construire la nouvelle RPN par concat de l'actuelle et de cartons_restants[i]
 
 		//convertir cartons_restants[i] en string
-		//char * str = malloc(sizeof(char) * (int)log10(cartons_restants[i]));
 		char * str;
 		CHECK_IF(str = malloc(sizeof(char) * 3), NULL, "malloc");
 
@@ -69,7 +64,6 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 		}
 		
 		//concat
-		//char* rpn_new = malloc(strlen(rpn_string) + 10*(int)log10(cartons_restants[i])); /* (should check the return value ...) */
 		char * rpn_new;
 		CHECK_IF(rpn_new = malloc(strlen(rpn_string) + 10*3), NULL, "malloc");
 		strcpy(rpn_new, rpn_string);
@@ -85,19 +79,19 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 			}
 		}
 
-		//lancer l'appel rec
 		appel_rec(rpn_new, cartons_restants_2, len_cartons_restants-1);
 
 		//free(str);
 		//free(rpn_new);
 	}
 
+	//si le RPN actuel peut etre evalue, alors lui rajouter une opération le rendra necessairement invalide
 	if(res.statut == RPN_VALEUR){
 		return;
 	}
 
 	//pour chaque operateur : appel rec
-	for(int i = 0; i<4; i++){ //4 opérateurs
+	for(int i = 0; i<4; i++){
 		char * str = "";
 
 		switch (i)
@@ -116,7 +110,6 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 			break;
 		}
 
-		//char* rpn_new = malloc(strlen(rpn_string) + 10*3); /* (should check the return value ...) 3 = 2 espaces + 1 opérateur */
 		char* rpn_new;
 		CHECK_IF(rpn_new = malloc(strlen(rpn_string) + 10*3), NULL, "malloc");
 		strcpy(rpn_new, rpn_string);
@@ -128,12 +121,9 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 	}
 
 	//TODO : free les strings
-	//TODO : 2 fois le meme carton pris...
 }
 
 int main(int argc, char ** argv) {
-	printf("***********************\n");
-
 	assert(argc==NB_CARTONS_INITIAL+2);
 
 	int cartons[NB_CARTONS_INITIAL] = {0};
@@ -145,16 +135,12 @@ int main(int argc, char ** argv) {
 
 	appel_rec("", cartons, NB_CARTONS_INITIAL);
 
-	printf("%d\n", best_diff);
-	printf("%s\n", best_rpn_string);
+	printf("RPN trouve (best_diff=%d) : %s\n", best_diff, best_rpn_string);
 
 	affiche_operations_rpn(best_rpn_string);
 
 	return 0;
 }
-
-
-
 
 
 
