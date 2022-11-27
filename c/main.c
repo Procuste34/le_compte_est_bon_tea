@@ -12,23 +12,9 @@
 
 #define NB_CARTONS_INITIAL 6
 
-#define A_TROUVER 859//631//945//219 //945
-#define C1 3//2// 5//8 //5
-#define C2 5// 9//3 //9
-#define C3 7// 7//10 //7
-#define C4 9// 4//7 //4
-#define C5 25// 1//4 //1
-#define C6 50// 6//2 //6
-
 int a_trouver;
 int best_diff;
 char * best_rpn_string = "";
-
-void showTab(int tab[], int len){
-	for(int i=0; i<len; i++){
-		printf("%d\n", tab[i]);
-	}
-}
 
 void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restants){
 	//printf("--------- RPN : '%s' ---------\n", rpn_string);
@@ -80,9 +66,6 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 		}
 
 		appel_rec(rpn_new, cartons_restants_2, len_cartons_restants-1);
-
-		//free(str);
-		//free(rpn_new);
 	}
 
 	//si le RPN actuel peut etre evalue, alors lui rajouter une opération le rendra necessairement invalide
@@ -116,11 +99,7 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 		strcat(rpn_new, str);
 
 		appel_rec(rpn_new, cartons_restants, len_cartons_restants);
-
-		//free(rpn_new);
 	}
-
-	//TODO : free les strings
 }
 
 int main(int argc, char ** argv) {
@@ -141,8 +120,6 @@ int main(int argc, char ** argv) {
 
 	return 0;
 }
-
-
 
 //sources : https://stackoverflow.com/questions/4176326/arguments-to-main-in-c
 //https://stackoverflow.com/questions/9748393/how-can-i-get-argv-as-int
