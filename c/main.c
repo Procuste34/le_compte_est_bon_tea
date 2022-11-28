@@ -34,6 +34,36 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 		}
 	}
 
+	if(res.statut != RPN_VALEUR){
+		//pour chaque operateur : appel rec
+		for(int i = 0; i<4; i++){
+			char * str = "";
+
+			switch (i)
+			{
+			case 0:
+				str = " +";
+				break;
+			case 1:
+				str = " -";
+				break;
+			case 2:
+				str = " *";
+				break;
+			default:
+				str = " /";
+				break;
+			}
+
+			char* rpn_new;
+			CHECK_IF(rpn_new = malloc(strlen(rpn_string) + 3), NULL, "malloc"); //mettre 3
+			strcpy(rpn_new, rpn_string);
+			strcat(rpn_new, str);
+
+			appel_rec(rpn_new, cartons_restants, len_cartons_restants);
+		}
+	}
+
 	//pour chaque carton restant : appel rec
 	for(int i=0; i<len_cartons_restants; i++){
 
@@ -43,15 +73,11 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 		char * str;
 		CHECK_IF(str = malloc(sizeof(char) * 3), NULL, "malloc");
 
-		if(strcmp(rpn_string, "") == 0){
-			sprintf(str, "%d", cartons_restants[i]);
-		}else {
-			sprintf(str, " %d", cartons_restants[i]);
-		}
+		sprintf(str, " %d", cartons_restants[i]);
 		
 		//concat
 		char * rpn_new;
-		CHECK_IF(rpn_new = malloc(strlen(rpn_string) + 10*3), NULL, "malloc");
+		CHECK_IF(rpn_new = malloc(strlen(rpn_string) + 3), NULL, "malloc"); //mettre 3
 		strcpy(rpn_new, rpn_string);
 		strcat(rpn_new, str);
 
@@ -69,37 +95,9 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 	}
 
 	//si le RPN actuel peut etre evalue, alors lui rajouter une opération le rendra necessairement invalide
-	if(res.statut == RPN_VALEUR){
-		return;
-	}
-
-	//pour chaque operateur : appel rec
-	for(int i = 0; i<4; i++){
-		char * str = "";
-
-		switch (i)
-		{
-		case 0:
-			str = " +";
-			break;
-		case 1:
-			str = " -";
-			break;
-		case 2:
-			str = " *";
-			break;
-		default:
-			str = " /";
-			break;
-		}
-
-		char* rpn_new;
-		CHECK_IF(rpn_new = malloc(strlen(rpn_string) + 10*3), NULL, "malloc");
-		strcpy(rpn_new, rpn_string);
-		strcat(rpn_new, str);
-
-		appel_rec(rpn_new, cartons_restants, len_cartons_restants);
-	}
+	//if(res.statut == RPN_VALEUR){
+	//	return;
+	//}
 }
 
 int main(int argc, char ** argv) {

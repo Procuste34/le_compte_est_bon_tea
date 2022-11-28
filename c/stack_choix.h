@@ -2,6 +2,6 @@
 // CHOISIR ICI L'IMPLEMENTATION DES PILES
 
 //#define IMPLEMENTATION_CS
-#define IMPLEMENTATION_CD
-//#define IMPLEMENTATION_CLD
+//#define IMPLEMENTATION_CD
+#define IMPLEMENTATION_CLD
 /////////////////////////////////////////////////////////////////////////
