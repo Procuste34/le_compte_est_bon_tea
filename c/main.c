@@ -72,7 +72,6 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 		//convertir cartons_restants[i] en string
 		char * str;
 		CHECK_IF(str = malloc(sizeof(char) * 3), NULL, "malloc");
-
 		sprintf(str, " %d", cartons_restants[i]);
 		
 		//concat
@@ -100,7 +99,7 @@ void appel_rec(char * rpn_string, int cartons_restants[], int len_cartons_restan
 	//}
 }
 
-int main(int argc, char ** argv) {
+int main(int argc, char ** argv){
 	assert(argc==NB_CARTONS_INITIAL+2);
 
 	int cartons[NB_CARTONS_INITIAL] = {0};
