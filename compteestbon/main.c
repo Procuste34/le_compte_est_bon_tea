@@ -23,6 +23,3 @@ int main(int argc, char ** argv){
 
 	return 0;
 }
-
-//sources : https://stackoverflow.com/questions/4176326/arguments-to-main-in-c
-//https://stackoverflow.com/questions/9748393/how-can-i-get-argv-as-int

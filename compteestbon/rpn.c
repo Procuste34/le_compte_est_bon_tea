@@ -7,17 +7,25 @@
 
 #include "rpn.h"
 
+
+/*
+convertit une RPN sous forme de string en liste de T_elt
+*/
 T_list s2list(char * exp){
     T_list p = NULL;
 
-    int current_int = 0;
-    int last_entiers = 0;
+    //on parcourt la string à partir de la fin puisque qu'on ajoute en tête de liste
+    //afin que l'ordre des éléments dans la liste finale soit le même que 
+    //l'ordre des éléments de la string d'entrée
+
+    int current_int = 0; //nombre en cours de lecture depuis le dernier espace
+    int last_entiers = 0; //nombre d'entiers (entre 0 et 9) lus depuis le dernier espace
 
     for(int i = strlen(exp)-1; i>=0; i--){
         char ch = exp[i];
 
         if(ch == ' ' && last_entiers){
-            //ajouter a la liste si on casse un int
+            //on ajoute à la liste le nombre qui vient d'être lu
             T_elt elt = {current_int, RPN_VALEUR};
             p=addNode(elt, p);
 
@@ -30,11 +38,12 @@ T_list s2list(char * exp){
             continue;
         }
 
-        if(ch >= 48 && ch <= 57){
+        if(ch >= 48 && ch <= 57){ //le caractère lu est un entier entre 0 et 9 : ch-48 est l'entier lu
+            //on met à jour current_int et last_entiers
             current_int = pow(10, last_entiers)*(ch-48) + current_int;
             last_entiers++;
-        }else {
-            //ajouter a la liste l'operateur
+        }else { //le caractère lu est un oéprateur
+            //on ajoute l'operateur à la liste 
             
             if(ch == '+'){
                 T_elt elt = {0, RPN_PLUS};
@@ -65,10 +74,14 @@ T_list s2list(char * exp){
     return p;
 }
 
+/*
+évalue une RPN sous forme de string
+renvoit un T_elt avec un statut d'erreur si la RPN est fausse syntaxiquement
+*/
 T_elt rpn_eval(char * exp){
     if(strcmp(exp, "") == 0){ //cas particulier
-        T_elt ok = {0, RPN_EXPR_VALIDE};
-        return ok;
+        T_elt elt = {0, RPN_EXPR_VALIDE};
+        return elt;
     }
 
     #ifndef IMPLEMENTATION_CD
@@ -81,10 +94,13 @@ T_elt rpn_eval(char * exp){
     
     T_list rpn = s2list(exp);
 
-    //tant que la liste n'est pas vide
-    //  lire l'elt en tete
-    //  si operande : empiler
-    //  sinon : dépiler 2 fois, faire le cacul, empiler
+    //tant que la liste n'est pas vide:
+    //   lire l'elt en tete
+    //   si operande : empiler
+    //   sinon : dépiler 2 fois, faire le cacul, empiler
+
+    //au cours de cet algorithme, si une erreur intervient (exemple : on dépile une pile vide, on divise par 0...)
+    //la RPN en cours d'évaluation est fausse et on renvoit un T_elt avec un statut d'erreur
 
     while(rpn != NULL){
         T_elt elt = getFirstElt(rpn);
@@ -116,7 +132,7 @@ T_elt rpn_eval(char * exp){
                 push(c, &pile);
             }else if(elt.statut == RPN_MOINS){
 
-                if(b.value-a.value<0){
+                if(b.value-a.value<0){ //on ne travaille qu'avec des entiers naturels
                     T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
                     return elt_erreur;
                 }
@@ -127,12 +143,12 @@ T_elt rpn_eval(char * exp){
                 T_elt c = {b.value*a.value, RPN_VALEUR};
                 push(c, &pile);
             }else if(elt.statut == RPN_DIVISE){
-                if(a.value==0){
+                if(a.value==0){ //division par 0
                     T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
                     return elt_erreur;
                 }
 
-                if(b.value%a.value != 0){
+                if(b.value%a.value != 0){ //on ne travaille qu'avec des entiers naturels
                     T_elt elt_erreur = {-1, RPN_EXPR_NON_VALIDE};
                     return elt_erreur;
                 }
@@ -146,10 +162,8 @@ T_elt rpn_eval(char * exp){
         }
     }
 
-    //showStack(&pile);
-
     //si il reste qu'un int a la fin : c'est une RPN valide, on renvoit le res. (type: RPN_VALEUR)
-    //sinon : expr non evaluable mais reste quand meme valide
+    //sinon : expr non evaluable mais reste quand meme valide (type : RPN_EXPR_VALIDE)
 
     T_elt res = pop(&pile);
 
@@ -166,6 +180,9 @@ T_elt rpn_eval(char * exp){
     }
 }
 
+/*
+évalue une RPN sous forme de string et affiche les opérations faites lors de cette évaluation 
+*/
 void affiche_operations_rpn(char * exp){
     assert(rpn_eval(exp).statut == RPN_VALEUR);
 
@@ -203,7 +220,7 @@ void affiche_operations_rpn(char * exp){
             }else if(elt.statut == RPN_FOIS){
                 T_elt c = {b.value*a.value, RPN_VALEUR};
                 push(c, &pile);
-                printf("%d * %d = %d\n", b.value, a.value, c.value);
+                printf("%d x %d = %d\n", b.value, a.value, c.value);
 
             }else if(elt.statut == RPN_DIVISE){
                 T_elt c = {b.value/a.value, RPN_VALEUR};
@@ -213,12 +230,3 @@ void affiche_operations_rpn(char * exp){
         }
     }
 }
-
-//TODO :
-//fonction qui verifie si une RPN est valide
-//attention, c'est dommage de parcourir 2 fois un RPN (une fois pour voir s'il est valide, une fois pour l'evaluer)
-//autant faire une fonction pour les 2 (renvoie un elt special si pas valide, ...)
-
-//rpn_eval peut renvoyer 3 cas différent : elt d'erreur (<-> RPN non valide : RPN_EXPR_NON_VALIDE)
-//                                         elt de valeur (<-> RPN valide : RPN_VALEUR)
-//                                         elt cas 3 (<-> RPN peut etre valide : RPN_EXP_VALIDE) 
