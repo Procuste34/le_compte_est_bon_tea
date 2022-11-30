@@ -2,8 +2,8 @@
 #include <string.h> // strcmp, strlen
 #include <math.h> // pow
 
-#include "../include/traces.h" 
-#include "../include/check.h"
+#include "traces.h" 
+#include "check.h"
 
 #include "rpn.h"
 

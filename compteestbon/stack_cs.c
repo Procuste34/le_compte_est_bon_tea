@@ -1,7 +1,6 @@
 #include <assert.h> // assert
 
-//#define CLEAR2CONTINUE
-#include "../include/traces.h" 
+#include "traces.h" 
 
 #include "stack_cs.h" // type et protypes liés à T_stack
 

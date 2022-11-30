@@ -1,8 +1,8 @@
 #include <stdio.h> // sprintf
 #include <string.h> // strdup
 
-#include "../include/traces.h"
-#include "../include/check.h" 
+#include "traces.h"
+#include "check.h" 
 
 #include "elt.h"
 

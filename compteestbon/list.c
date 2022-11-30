@@ -1,9 +1,7 @@
 #include <assert.h>
 
-#include "../include/traces.h" 
-
-//#define DEBUG
-#include "../include/check.h"
+#include "traces.h" 
+#include "check.h"
 
 #include "elt.h" // T_elt 
 #include "list.h" // prototypes 

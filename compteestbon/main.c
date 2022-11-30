@@ -1,7 +1,7 @@
 #include <assert.h>
 
-#include "../include/traces.h" 
-#include "../include/check.h" 
+#include "traces.h" 
+#include "check.h" 
 
 #include "rec.h"
 

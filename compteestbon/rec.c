@@ -2,8 +2,8 @@
 #include <assert.h>
 #include <string.h> //strcat, strcpy, strcmp
 
-#include "../include/traces.h" 
-#include "../include/check.h" 
+#include "traces.h" 
+#include "check.h" 
 
 #include "elt.h"
 #include "rpn.h"

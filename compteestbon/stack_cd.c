@@ -1,10 +1,7 @@
 #include <assert.h> // assert
 
-//#define DEBUG
-#include "../include/check.h" 
-
-//#define CLEAR2CONTINUE
-#include "../include/traces.h" 
+#include "check.h" 
+#include "traces.h" 
 
 #include "stack_cd.h" // type et protypes liés à T_stack
 
