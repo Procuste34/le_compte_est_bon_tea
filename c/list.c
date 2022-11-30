@@ -1,6 +1,5 @@
 #include <assert.h>
 
-//#define CLEAR2CONTINUE
 #include "../include/traces.h" 
 
 //#define DEBUG

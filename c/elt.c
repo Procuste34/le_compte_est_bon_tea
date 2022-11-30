@@ -1,8 +1,8 @@
 #include <stdio.h> // sprintf
 #include <string.h> // strdup
 
-//#define CLEAR2CONTINUE
-#include "../include/traces.h" 
+#include "../include/traces.h"
+#include "../include/check.h" 
 
 #include "elt.h"
 
@@ -85,11 +85,14 @@ char * toString(T_elt e) {
 		statut_string = "autre";
 	}
 
-	printf("value : %d | statut : %s\n", e.value, statut_string);
-	return "";
+	char* str;
+	CHECK_IF(str = malloc(40), NULL, "malloc toString");
+	sprintf(str, "value : %d | statut : %s\n", e.value, statut_string);
+	return str;
 }
 
 T_elt genElt(void) {
+	//on renvoit un RPN arbitraire
 	T_elt mon_element = {0, 0};
 	return mon_element;
 } 

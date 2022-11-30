@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "traces.h": "c",
-        "check.h": "c"
+        "check.h": "c",
+        "string.h": "c"
     }
 }
